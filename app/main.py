@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-import requests
+import requests, os, uvicorn
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -42,3 +42,7 @@ async def get_top_stories():
             
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=503, detail="HackerNews API is unreachable") from e
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
