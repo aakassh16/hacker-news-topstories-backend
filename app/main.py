@@ -18,6 +18,7 @@ app.add_middleware(
 HN_API_URL = "https://hacker-news.firebaseio.com/v0/topstories.json"
 STORY_URL = "https://hacker-news.firebaseio.com/v0/item/{}.json"
 
+
 @app.get("/top-stories")
 async def get_top_stories():
     try:
