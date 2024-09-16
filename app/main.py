@@ -6,26 +6,25 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Allow React frontend to access FastAPI
+# CORS Management
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://hacker-news-topstories.vercel.app"],  # Change this to your React frontend's URL
+    allow_origins=["https://hacker-news-topstories.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-HN_API_URL = "https://hacker-news.firebaseio.com/v0/topstories.json"
+HACKER_NEWS_API_URL = "https://hacker-news.firebaseio.com/v0/topstories.json"
 STORY_URL = "https://hacker-news.firebaseio.com/v0/item/{}.json"
 
 
 @app.get("/top-stories")
 async def get_top_stories():
     try:
-        # Fetch the top story IDs from HackerNews
-        response = requests.get(HN_API_URL)
-        response.raise_for_status()  # Raise an exception if the API call fails
-        story_ids = response.json()[:10]  # Get the first 10 stories
+        response = requests.get(HACKER_NEWS_API_URL)
+        response.raise_for_status() 
+        story_ids = response.json()[:10]  # 10 Stories only
 
         stories = []
         for story_id in story_ids:
@@ -44,6 +43,7 @@ async def get_top_stories():
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=503, detail="HackerNews API is unreachable") from e
 
+# For Reneder Deployment
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
