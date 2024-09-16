@@ -9,7 +9,7 @@ app = FastAPI()
 # Allow React frontend to access FastAPI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Change this to your React frontend's URL
+    allow_origins=["https://hacker-news-topstories.vercel.app/"],  # Change this to your React frontend's URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
