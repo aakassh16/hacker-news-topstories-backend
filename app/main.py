@@ -14,7 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 HACKER_NEWS_API_URL = "https://hacker-news.firebaseio.com/v0/topstories.json"
 STORY_URL = "https://hacker-news.firebaseio.com/v0/item/{}.json"
 
